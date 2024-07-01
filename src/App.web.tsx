@@ -159,9 +159,7 @@ function App() {
                     <I18nProvider>
                       <PortalProvider>
                         <StarterPackProvider>
-                          <ActiveVideoProvider>
-                            <InnerApp />
-                          </ActiveVideoProvider>
+                          <InnerApp />
                         </StarterPackProvider>
                       </PortalProvider>
                     </I18nProvider>
