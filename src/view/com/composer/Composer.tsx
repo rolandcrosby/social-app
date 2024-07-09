@@ -101,10 +101,7 @@ import {SelectVideoBtn} from './videos/SelectVideoBtn'
 import {VideoPreview} from './videos/VideoPreview'
 import {VideoTranscodeProgress} from './videos/VideoTranscodeProgress'
 import hairlineWidth = StyleSheet.hairlineWidth
-import {
-  useCompressVideoMutation,
-  useVideoUpload,
-} from 'state/queries/video/upload-video'
+import {useVideoUpload} from 'state/queries/video/upload-video'
 
 type CancelRef = {
   onPressCancel: () => void
@@ -166,12 +163,7 @@ export const ComposePost = observer(function ComposePost({
     initQuote,
   )
 
-  const {
-    selectVideo,
-    resetVideo,
-    state: videoUploadState,
-    dispatch: videoUploadDispatch,
-  } = useVideoUpload()
+  const {selectVideo, state: videoUploadState} = useVideoUpload()
 
   const {extLink, setExtLink} = useExternalLinkFetch({setQuote})
   const [extGif, setExtGif] = useState<Gif>()
@@ -629,14 +621,12 @@ export const ComposePost = observer(function ComposePost({
               asset={videoUploadState.asset}
               progress={videoUploadState.progress}
             />
-          ) : (
-            videoUploadState.video && (
-              // remove suspense when we get rid of lazy
-              <Suspense fallback={null}>
-                <VideoPreview video={videoUploadState.video} clear={() => {}} />
-              </Suspense>
-            )
-          )}
+          ) : videoUploadState.video ? (
+            // remove suspense when we get rid of lazy
+            <Suspense fallback={null}>
+              <VideoPreview video={videoUploadState.video} clear={() => {}} />
+            </Suspense>
+          ) : null}
         </Animated.ScrollView>
         <SuggestedLanguage text={richtext.text} />
 
