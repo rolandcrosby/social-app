@@ -151,7 +151,11 @@ export function Label({
   )
 }
 
-export function FollowsYou({size = 'sm'}: CommonProps) {
+export type FollowsYouProps = {
+  hateFollow?: boolean
+} & CommonProps
+
+export function FollowsYou({size = 'sm', hateFollow = false}: FollowsYouProps) {
   const t = useTheme()
 
   const variantStyles = React.useMemo(() => {
@@ -172,7 +176,7 @@ export function FollowsYou({size = 'sm'}: CommonProps) {
   return (
     <View style={[variantStyles, a.justify_center, t.atoms.bg_contrast_25]}>
       <Text style={[a.text_xs, a.leading_tight]}>
-        <Trans>Follows You</Trans>
+        {hateFollow ? 'Hate-follows You' : <Trans>Follows You</Trans>}
       </Text>
     </View>
   )

@@ -118,6 +118,7 @@ export function ProfileCard({
           </Text>
           <ProfileCardPills
             followedBy={!!profile.viewer?.followedBy}
+            hateFollow={!!profile.viewer?.followedBy?.includes('hatefollow')}
             moderation={moderation}
           />
           {!!profile.viewer?.followedBy && <View style={s.flexRow} />}
@@ -156,9 +157,11 @@ export function ProfileCard({
 
 export function ProfileCardPills({
   followedBy,
+  hateFollow,
   moderation,
 }: {
   followedBy: boolean
+  hateFollow: boolean
   moderation: ModerationDecision
 }) {
   const modui = moderation.ui('profileList')
@@ -168,7 +171,7 @@ export function ProfileCardPills({
 
   return (
     <Pills.Row style={[a.pt_xs]}>
-      {followedBy && <Pills.FollowsYou />}
+      {followedBy && <Pills.FollowsYou hateFollow={hateFollow} />}
       {modui.alerts.map(alert => (
         <Pills.Label key={getModerationCauseKey(alert)} cause={alert} />
       ))}

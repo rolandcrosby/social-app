@@ -71,6 +71,7 @@ export function Card({
 
       <ProfileCardPills
         followedBy={Boolean(profile.viewer?.followedBy)}
+        hateFollow={!!profile.viewer?.followedBy?.includes('hatefollow')}
         moderation={moderation}
       />
 
